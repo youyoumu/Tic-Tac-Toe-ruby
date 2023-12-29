@@ -28,7 +28,12 @@ class Board
   def take_turn_player1
     name = @player1.name
     puts "#{name}'s turn: "
-    coordinate = gets.chomp.to_i
+    coordinate = nil
+    loop do
+      coordinate = gets.chomp.to_i
+      break if input_valid?(coordinate)
+      puts "Input invalid! Try again: "
+    end
     mark = @player1.mark
     draw(coordinate, mark)
   end
@@ -36,9 +41,26 @@ class Board
   def take_turn_player2
     name = @player2.name
     puts "#{name}'s turn: "
-    coordinate = gets.chomp.to_i
+    coordinate = nil
+    loop do
+      coordinate = gets.chomp.to_i
+      break if input_valid?(coordinate)
+      puts "Input invalid! Try again: "
+    end
     mark = @player2.mark
     draw(coordinate, mark)
+  end
+
+  def coordinate_empty?(coordinate)
+    return true if @board_array[(coordinate - 1) / 3][(coordinate % 3) - 1] == ' '
+
+    false
+  end
+
+  def input_valid?(coordinate)
+    return true if Array(1..9).include?(coordinate.to_i) && coordinate_empty?(coordinate.to_i)
+
+    false
   end
 
   def draw(coordinate, mark)
