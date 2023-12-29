@@ -1,10 +1,10 @@
-require "./lib/player.rb"
+require './lib/player'
 
 class Board
   attr_accessor :board_array
 
   def initialize(player1_name, player2_name, player1_mark, player2_mark)
-    @board_array = Array.new(3) { Array.new(3, " ") }
+    @board_array = Array.new(3) { Array.new(3, ' ') }
     @player1 = Player.new(player1_name, player1_mark)
     @player2 = Player.new(player2_name, player2_mark)
   end
@@ -32,7 +32,8 @@ class Board
     loop do
       coordinate = gets.chomp.to_i
       break if input_valid?(coordinate)
-      puts "Input invalid! Try again: "
+
+      puts 'Input invalid! Try again: '
     end
     mark = @player1.mark
     draw(coordinate, mark)
@@ -45,7 +46,8 @@ class Board
     loop do
       coordinate = gets.chomp.to_i
       break if input_valid?(coordinate)
-      puts "Input invalid! Try again: "
+
+      puts 'Input invalid! Try again: '
     end
     mark = @player2.mark
     draw(coordinate, mark)
@@ -70,9 +72,9 @@ class Board
 
   def print_board
     puts " #{@board_array[0][0]} | #{@board_array[0][1]} | #{@board_array[0][2]} "
-    puts "---+---+---"
+    puts '---+---+---'
     puts " #{@board_array[1][0]} | #{@board_array[1][1]} | #{@board_array[1][2]} "
-    puts "---+---+---"
+    puts '---+---+---'
     puts " #{@board_array[2][0]} | #{@board_array[2][1]} | #{@board_array[2][2]} "
   end
 
@@ -80,7 +82,7 @@ class Board
     mark_array = []
     board_array = @board_array
 
-    #check horizontally
+    # check horizontally
     i = 0
     while i < 3
       j = 0
@@ -88,16 +90,15 @@ class Board
         mark_array.push(board_array[i][j])
         j += 1
       end
-      if mark_array.uniq.length == 1
-        if mark_array.uniq[0] == @player1.mark || mark_array.uniq[0] == @player2.mark
-          return true
-        end
+      if mark_array.uniq.length == 1 && (mark_array.uniq[0] == @player1.mark || mark_array.uniq[0] == @player2.mark)
+        return true
       end
+
       mark_array.clear
       i += 1
     end
 
-    #check vertically
+    # check vertically
     i = 0
     while i < 3
       j = 0
@@ -105,29 +106,27 @@ class Board
         mark_array.push(board_array[j][i])
         j += 1
       end
-      if mark_array.uniq.length == 1
-        if mark_array.uniq[0] == @player1.mark || mark_array.uniq[0] == @player2.mark
-          return true
-        end
+      if mark_array.uniq.length == 1 && (mark_array.uniq[0] == @player1.mark || mark_array.uniq[0] == @player2.mark)
+        return true
       end
+
       mark_array.clear
       i += 1
     end
 
-    #check diagonally1
+    # check diagonally1
     i = 0
     while i < 3
       mark_array.push(board_array[i][i])
       i += 1
     end
-    if mark_array.uniq.length == 1
-      if mark_array.uniq[0] == @player1.mark || mark_array.uniq[0] == @player2.mark
-        return true
-      end
+    if mark_array.uniq.length == 1 && (mark_array.uniq[0] == @player1.mark || mark_array.uniq[0] == @player2.mark)
+      return true
     end
+
     mark_array.clear
 
-    #check diagonally2
+    # check diagonally2
     i = 2
     j = 0
     while i > -1
@@ -135,11 +134,10 @@ class Board
       i -= 1
       j += 1
     end
-    if mark_array.uniq.length == 1
-      if mark_array.uniq[0] == @player1.mark || mark_array.uniq[0] == @player2.mark
-        return true
-      end
+    if mark_array.uniq.length == 1 && (mark_array.uniq[0] == @player1.mark || mark_array.uniq[0] == @player2.mark)
+      return true
     end
+
     mark_array.clear
 
     false

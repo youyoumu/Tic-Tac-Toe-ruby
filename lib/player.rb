@@ -6,5 +6,4 @@ class Player
     @mark = mark
     @is_win = false
   end
-
 end
